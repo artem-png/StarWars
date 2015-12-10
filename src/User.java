@@ -42,6 +42,19 @@ public class User  {
 	public Rectangle getRectangle(){
 		return new Rectangle(x+170,y+25,img2.getWidth(null)-220,img2.getHeight(null)-50);
 	}
+	
+	public void restart(){
+		x = 20;
+		y = 200;
+		dy = 0;
+		dx = 0;
+		score=0 ;
+		isGunOk = true;
+		health=2;
+	    layer1 = 0;
+		layer2 = 1200;
+		gun.clear();
+	}
 
 	public void move() {
 		y += dy;
