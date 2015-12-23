@@ -8,7 +8,6 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 
 public class Boss implements Runnable {
-
 	public static final int MAX_TOP = 2;
 	public static final int MAX_BOT = 490;
 	Image img2;
@@ -27,8 +26,9 @@ public class Boss implements Runnable {
 	Vector<Object> gun;
 	Thread gunFactory = new Thread(this);
 
-	public Boss() {
-		id = 2;
+	public Boss(int i) {
+		id = i;
+		if (i==1){
 		try {
 
 			img2 = ImageIO.read(new File("C:\\textures\\enemyboss.png"));
@@ -41,6 +41,20 @@ public class Boss implements Runnable {
 		gun = new Vector();
 		boomXY(100, 0);
 		gunFactory.start();
+		}
+		else
+		{
+			try {
+
+				img2 = ImageIO.read(new File("C:\\textures\\boss2.png"));
+			} catch (IOException e) {
+				System.out.println(4);
+			}
+			health=6;
+			x=1400;
+			y=0;
+			
+		}
 
 	}
 
@@ -50,9 +64,7 @@ public class Boss implements Runnable {
 	}
 
 	public void move() {
-		if (schet < 0) {
-			x -= 6;
-		} else {
+		if (id==1){
 			if ((dx == 0) && (dy == 0)) {
 				if (x >= 650)
 					x -= 3;
@@ -75,7 +87,23 @@ public class Boss implements Runnable {
 			// GunBoss n = new GunBoss(x + 250, y + 40);
 			// gun.add(n);
 		}
+		if (id ==2){
+			dx=-4;
+			x+=dx;
+			if (x<662) x+=4;
+		}
 
+	}
+	
+	
+	
+	public void changeimg(String a){
+		try {
+
+			img2 = ImageIO.read(new File("C:\\textures\\"+a+".png"));
+		} catch (IOException e) {
+			System.out.println(4);
+		}
 	}
 
 	public Rectangle getRectangle() {
@@ -88,8 +116,9 @@ public class Boss implements Runnable {
 			gunFactory.stop();
 		} catch (Exception e) {
 		}
-		;
+
 	}
+	
 
 	@Override
 	public void run() {

@@ -81,14 +81,33 @@ public class User  {
 		if (key == KeyEvent.VK_DOWN) {
 			if (dy < 8)
 				dy += 8;
+			try {
+				img2 = ImageIO
+						.read(new File("C:\\textures\\rocketup.png"));
+			} catch (IOException n) {
+				System.out.println(1);
+			}
+
 		}
 		if (key == KeyEvent.VK_UP) {
 			if (dy > -8)
 				dy -= 8;
+			try {
+				img2 = ImageIO
+						.read(new File("C:\\textures\\rocketdown.png"));
+			} catch (IOException n) {
+				System.out.println(1);
+			}
 		}
 		if (key == KeyEvent.VK_RIGHT) {
 			if (dx < 8)
 				dx += 8;
+			try {
+				img2 = ImageIO 
+						.read(new File("C:\\textures\\rocketspeed.png"));
+			} catch (IOException n) {
+				System.out.println(1);
+			}
 		}
 		if (key == KeyEvent.VK_LEFT) {
 			if (dx > -8)
@@ -108,12 +127,30 @@ public class User  {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_DOWN) {
 			dy = 0;
+			try {
+				img2 = ImageIO
+						.read(new File("C:\\textures\\rocket.png"));
+			} catch (IOException n) {
+				System.out.println(1);
+			}
 		}
 		if (key == KeyEvent.VK_UP) {
 			dy = 0;
+			try {
+				img2 = ImageIO
+						.read(new File("C:\\textures\\rocket.png"));
+			} catch (IOException n) {
+				System.out.println(1);
+			}
 		}
 		if (key == KeyEvent.VK_RIGHT) {
 			dx = 0;
+			try {
+				img2 = ImageIO
+						.read(new File("C:\\textures\\rocket.png"));
+			} catch (IOException n) {
+				System.out.println(1);
+			}
 		}
 		if (key == KeyEvent.VK_LEFT) {
 			dx = 0;

@@ -7,7 +7,7 @@ import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
-public class Enemies implements Runnable {
+public class Enemies {
 	public static final int MAX_TOP = 2;
 	public static final int MAX_BOT = 490;
 	Image img2;
@@ -15,6 +15,8 @@ public class Enemies implements Runnable {
 	int y;
 	int boomX;
 	int boomY;
+	int maxyup;
+	int maxydown;
 	int dy = 0;
 	int dx = 0;
 	int v = 5;
@@ -24,7 +26,6 @@ public class Enemies implements Runnable {
 	int id;
 	Random k = new Random();
 	Vector<Object> gun;
-	Thread gunFactory = new Thread(this);
 
 	public Enemies(int i) {
 		if (i==1){
@@ -40,19 +41,18 @@ public class Enemies implements Runnable {
 		}
 		if (i==2){
 			id=2;
-		try {
-			
-			img2 = ImageIO.read(new File("C:\\textures\\enemyboss.png"));
-		} catch (IOException e) {
-			System.out.println(4);
+			try {
+				img2 = ImageIO.read(new File("C:\\textures\\enemy1.png"));
+			} catch (IOException e) {
+				System.out.println(4);
+			}
+			y = k.nextInt(490);
+			maxyup= y-50;
+			maxydown= y+50;
+			health = 1;
+			boomXY(-130,-20);
 		}
-		y = k.nextInt(100) + 100;
-		schet = 0;
-		health = 50;
-		 gun = new Vector();
-		boomXY(100,0);
-		gunFactory.start();
-		}
+		
 	}
 
 	public void boomXY(int x,int y){
@@ -61,31 +61,22 @@ public class Enemies implements Runnable {
 	}
 
 	public void move() {
-		if (schet < 0) {
+		if (id==1){
 			x -= 6;
-		} else {
-			if ((dx == 0) && (dy == 0)) {
-				if (x >= 650)
-					x -= 3;
-				else {
-					dy = k.nextInt(4) + +3;
-					dx = k.nextInt(4) + +3;
-				}
-			} else {
-				if (x > 1000)
-					dx *= -1;
-				if (x < 600)
-					dx *= -1;
-				if (y > 470)
-					dy *= -1;
-				if (y < 0)
-					dy *= -1;
-			}
-			x += dx;
-			y += dy;
-			//GunBoss n = new GunBoss(x + 250, y + 40);
-			//gun.add(n);
 		}
+		if (id==2){
+			x -= 9;
+			if (schet== -1) {
+				dy= -3;
+			}
+			if (y>maxydown) dy*=-1;
+			if (y<maxyup) dy*=-1;
+
+			y += dy;
+			schet=0;
+		}
+		
+		
 
 	}
 
@@ -94,26 +85,9 @@ public class Enemies implements Runnable {
 	}
 	
 	public void delete(){
-		gun=null;
-		try{
-		gunFactory.stop();
-		}
-		catch(Exception e){};
+
 	}
 
-	@Override
-	public void run() {
-		while(true){
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		GunBoss n = new GunBoss(x, y + 40);
-		gun.add(n);
-		}
-		
-	}
 
+	
 }
